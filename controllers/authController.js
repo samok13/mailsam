@@ -3,6 +3,5 @@ Vmail.controller('authCtrl',
   function($scope, authService, $state){
     $scope.authClick = function(){
       authService.handleAuthClick();
-      $state.go('index.inbox');
     };
 }]);

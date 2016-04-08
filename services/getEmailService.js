@@ -1,12 +1,15 @@
 Vmail.factory('getEmailService', ['$window', function($window){
 
   var gapi = $window.gapi;
+  var messages = [];
 
   var loadGmailApi = function() {
     $window.gapi.client.load('gmail', 'v1', displayInbox);
   };
 
   var displayInbox = function() {
+    messages = [];
+
     var request = $window.gapi.client.gmail.users.messages.list({
       'userId': 'me',
       'labelIds': 'INBOX',
@@ -20,9 +23,15 @@ Vmail.factory('getEmailService', ['$window', function($window){
           'id': this.id
         });
         messageRequest.execute(appendMessageRow);
+        // messageRequest.execute(function(message) {
+        //   message.push(message);
+        // });
       });
     });
+
+
   };
+
 
   var appendMessageRow = function(message) {
     $('.table-inbox tbody').append(

@@ -9,13 +9,6 @@ Vmail.factory('authService',
       'https://www.googleapis.com/auth/gmail.readonly '+
       'https://www.googleapis.com/auth/gmail.send';
 
-    var handleClientLoad = function() {
-      $window.gapi.client.setApiKey(apiKey);
-      $window.setTimeout(checkAuth, 1);
-    };
-
-    $window.handleClientLoad = handleClientLoad;
-
     var checkAuth = function() {
       $window.gapi.auth.authorize({
         client_id: clientId,
@@ -35,13 +28,12 @@ Vmail.factory('authService',
 
     var handleAuthResult = function(authResult) {
       if(authResult && !authResult.error) {
-        getEmailService.loadGmailApi();
-      } 
+        $state.go('index.inbox');
+      }
     };
 
     return {
-      handleClientLoad: handleClientLoad,
-      handleAuthClick: handleAuthClick, 
+      handleAuthClick: handleAuthClick,
       checkAuth: checkAuth
     };
 }]);
