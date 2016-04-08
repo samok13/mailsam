@@ -134,6 +134,38 @@ Vmail.factory('getEmailService', ['$window', function($window){
     return '';
   };
 
+  function fillInReply(to, subject, message_id)
+  {
+    $('#reply-to').val(to);
+    $('#reply-subject').val(subject);
+    $('#reply-message-id').val(message_id);
+  }
+
+  function sendReply()
+  {
+    $('#reply-button').addClass('disabled');
+
+    sendMessage(
+      {
+        'To': $('#reply-to').val(),
+        'Subject': $('#reply-subject').val(),
+        'In-Reply-To': $('#reply-message-id').val()
+      },
+      $('#reply-message').val(),
+      replyTidy
+    );
+
+    return false;
+  }
+
+  function replyTidy()
+    {
+      $('#reply-modal').modal('hide');
+      $('#reply-message').val('');
+      $('#reply-button').removeClass('disabled');
+    }
+
+
   return{
     loadGmailApi: loadGmailApi
   };
