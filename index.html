@@ -14,18 +14,20 @@
     <script src="vendor/bootstrap.min.js"></script>
     <script src="vendor/angular.min.js"></script>
     <script src="vendor/angular-ui-router.min.js"></script>
-    <script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
+    <!--</script>-->
 
     <!-- Our JS Application Files -->
     <script src="app.js"></script>
     <!-- Controllers -->
     <script src="controllers/authController.js"></script>
+    <script src="controllers/emailController.js"></script>
     <!-- Directives -->
     <!-- Services -->
     <script src="services/authService.js"></script>
+    <script src="services/getEmailService.js"></script>
+    <script src="services/sendEmailService.js"></script>
 
-    <!-- <script src="javascript/auth.js"></script>
-    <script src="javascript/send_email.js"></script>
-    <script src="javascript/get_email.js"></script> -->
+    <!-- Make sure to call after handleClientLoad is defined -->
+    <script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
   </body>
 </html>

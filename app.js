@@ -7,6 +7,12 @@ var Vmail = angular.module('Vmail', ['ui.router'])
         url: '/signin',
         templateUrl: 'templates/signin.html',
         controller: 'authCtrl'
+      })
+      .state('email', {
+        url: '/email',
+        templateUrl: 'templates/email.html',
+        controller: 'emailCtrl'
       });
+
     }
   ]);

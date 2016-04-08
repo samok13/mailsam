@@ -1,6 +1,6 @@
 Vmail.factory('authService',
-  ['$window',
-  function($window) {
+  ['$window', 'getEmailService', '$state',
+  function($window, getEmailService, $state) {
     var gapi = $window.gapi;
 
     var apiKey = "AIzaSyDVWTQxCJ83f2zCXgdvb_Z1Pj1HA1CnyCk";
@@ -10,12 +10,14 @@ Vmail.factory('authService',
       'https://www.googleapis.com/auth/gmail.send';
 
     var handleClientLoad = function() {
-      gapi.client.setApiKey(apiKey);
-      window.setTimeout(checkAuth, 1);
+      $window.gapi.client.setApiKey(apiKey);
+      $window.setTimeout(checkAuth, 1);
     };
 
+    $window.handleClientLoad = handleClientLoad;
+
     var checkAuth = function() {
-      gapi.auth.authorize({
+      $window.gapi.auth.authorize({
         client_id: clientId,
         scope: scopes,
         immediate: true
@@ -23,7 +25,7 @@ Vmail.factory('authService',
     };
 
     var handleAuthClick = function() {
-      gapi.auth.authorize({
+      $window.gapi.auth.authorize({
         client_id: clientId,
         scope: scopes,
         immediate: false
@@ -33,19 +35,21 @@ Vmail.factory('authService',
 
     var handleAuthResult = function(authResult) {
       if(authResult && !authResult.error) {
-        loadGmailApi();
+        getEmailService.loadGmailApi();
         $('#compose-button').removeClass("hidden");
         $('#authorize-button').remove();
         $('.table-inbox').removeClass("hidden");
+        $state.go("email");
       } else {
         $('#authorize-button').removeClass("hidden");
-        $('#authorize-button').on('click', function(){
-          handleAuthClick();
-        });
+        // $('#authorize-button').on('click', function(){
+        //   handleAuthClick();
+        // });
       }
     };
 
     return {
-      handleClientLoad: handleClientLoad
+      handleClientLoad: handleClientLoad,
+      handleAuthClick: handleAuthClick
     };
 }]);

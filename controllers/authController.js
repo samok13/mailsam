@@ -1,5 +1,7 @@
 Vmail.controller('authCtrl',
-  ['$scope',
-  function($scope){
-
+  ['$scope','authService',
+  function($scope, authService){
+    $scope.authClick = function(){
+      authService.handleAuthClick();
+    }
 }]);
