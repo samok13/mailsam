@@ -35,6 +35,12 @@ Vmail.factory('getEmailService', ['$window', function($window){
 
   var appendMessageRow = function(message) {
 
+    var reply_to = (getHeader(message.payload.headers, 'Reply-to') !== '' ?
+      getHeader(message.payload.headers, 'Reply-to') :
+      getHeader(message.payload.headers, 'From')).replace(/\"/g, '&quot;');
+
+    var reply_subject = 'Re: '+getHeader(message.payload.headers, 'Subject').replace(/\"/g, '&quot;');
+
     $('.table-inbox tbody').append(
       '<tr>\
         <td>'+getHeader(message.payload.headers, 'From')+'</td>\
@@ -61,10 +67,20 @@ Vmail.factory('getEmailService', ['$window', function($window){
               <h4 class="modal-title" id="myModalLabel">' +
                 getHeader(message.payload.headers, 'Subject') +
               '</h4>\
-            </div>\
-            <div class="modal-body">\
+            </div>' + 
+            '<div class="modal-body">\
               <iframe id="message-iframe-'+message.id+'" srcdoc="<p>Loading...</p>">\
               </iframe>\
+            </div>\
+            <div class="modal-footer">\
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>\
+              <button type="button" class="btn btn-primary reply-button" data-dismiss="modal" data-toggle="modal" data-target="#reply-modal"\
+                onclick="fillInReply(\
+                  \''+reply_to+'\', \
+                  \''+reply_subject+'\', \
+                  \''+getHeader(message.payload.headers, 'Message-ID')+'\'\
+                );"\
+              >Reply</button>\
             </div>\
           </div>\
         </div>\
