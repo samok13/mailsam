@@ -5,7 +5,7 @@
     <title>Vmail</title>
     <link rel="stylesheet" href="vendor/bootstrap.min.css">
     <link rel="stylesheet" href="vendor/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="assets/styles.css">
   </head>
   <body>
     <ui-view></ui-view>
@@ -14,6 +14,7 @@
     <script src="vendor/bootstrap.min.js"></script>
     <script src="vendor/angular.min.js"></script>
     <script src="vendor/angular-ui-router.min.js"></script>
+    <script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
 
     <!-- Our JS Application Files -->
     <script src="app.js"></script>
@@ -21,10 +22,10 @@
     <script src="controllers/authController.js"></script>
     <!-- Directives -->
     <!-- Services -->
+    <script src="services/authService.js"></script>
 
     <!-- <script src="javascript/auth.js"></script>
     <script src="javascript/send_email.js"></script>
-    <script src="javascript/get_email.js"></script>
-    <script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script> -->
+    <script src="javascript/get_email.js"></script> -->
   </body>
 </html>
