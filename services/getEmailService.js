@@ -6,7 +6,7 @@ Vmail.factory('getEmailService',
     var gapi = $window.gapi;
     var messages = [];
 
-    var loadGmailApi = function() {
+    var loadInboxGmailApi = function() {
       $window.gapi.client.load('gmail', 'v1', displayInbox);
     };
 
@@ -29,6 +29,50 @@ Vmail.factory('getEmailService',
         });
       });
     };
+
+    var loadSentGmailApi = function() {
+      $window.gapi.client.load('gmail', 'v1', displaySent);
+    };
+
+    var displaySent= function() {
+      messages = [];
+
+      var request = $window.gapi.client.gmail.users.messages.list({
+        'userId': 'me',
+        'labelIds': 'INBOX',
+        'maxResults': 10
+      });
+
+      request.execute(function(response) {
+        $.each(response.messages, function() {
+          var messageRequest = $window.gapi.client.gmail.users.messages.get({
+            'userId': 'me',
+            'id': this.id
+          });
+          messageRequest.execute(appendMessageRow);
+        });
+      });
+    };
+
+    // var getLabels = function(user_id){
+    //   $window.gapi.client.gmail.users.labels.list({
+    //     'userId': 'user_id',
+    //     'labelIds': 'INBOX',
+    //     'maxResults': 10
+    //   });
+    // }
+
+    var listLabels = function() {
+      console.log($window.gapi.client);
+       var request = $window.gapi.client.gmail.users.labels.list({
+         'userId': "me"
+       });
+       request.execute(function(resp) {
+         var labels = resp.labels;
+         console.log(labels);
+       });
+      }
+
 
     var appendMessageRow = function(message) {
 
@@ -158,7 +202,9 @@ Vmail.factory('getEmailService',
     };
 
     return {
-      loadGmailApi: loadGmailApi
+      loadInboxGmailApi: loadInboxGmailApi,
+      loadSentGmailApi: loadSentGmailApi,
+      listLabels: listLabels
     };
 
 }]);
