@@ -34,6 +34,7 @@ Vmail.factory('getEmailService', ['$window', function($window){
 
 
   var appendMessageRow = function(message) {
+
     $('.table-inbox tbody').append(
       '<tr>\
         <td>'+getHeader(message.payload.headers, 'From')+'</td>\

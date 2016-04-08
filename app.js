@@ -1,10 +1,10 @@
 var Vmail = angular.module('Vmail', ['ui.router'])
   .config(['$urlRouterProvider', '$stateProvider',
     function($urlRouterProvider, $stateProvider) {
-      $urlRouterProvider.otherwise('/signin');
+      //$urlRouterProvider.otherwise('/signin');
       $stateProvider
       .state('signin', {
-        url: '/signin',
+        url: '',
         templateUrl: 'templates/signin.html',
         controller: 'authCtrl'
       })
@@ -48,6 +48,9 @@ var Vmail = angular.module('Vmail', ['ui.router'])
         url: '/draft',
         templateUrl: 'templates/draft.html',
         controller: 'draftCtrl'
+      })
+      .state('index.show',{
+        url: '/message-modal-:id',
       });
 
     }
