@@ -34,12 +34,11 @@ Vmail.factory('getEmailService',
       $window.gapi.client.load('gmail', 'v1', displaySent);
     };
 
-    var displaySent= function() {
-      messages = [];
+    var displaySent = function() {
 
       var request = $window.gapi.client.gmail.users.messages.list({
         'userId': 'me',
-        'labelIds': 'INBOX',
+        'labelIds': 'SENT',
         'maxResults': 10
       });
 
@@ -62,8 +61,12 @@ Vmail.factory('getEmailService',
     //   });
     // }
 
+    var loadLabelsGmailApi = function() {
+      $window.gapi.client.load('gmail', 'v1', listLabels);
+    };
+
     var listLabels = function() {
-      console.log($window.gapi.client);
+      console.log($window.gapi.client.gmail);
        var request = $window.gapi.client.gmail.users.labels.list({
          'userId': "me"
        });
@@ -71,7 +74,7 @@ Vmail.factory('getEmailService',
          var labels = resp.labels;
          console.log(labels);
        });
-      }
+    };
 
 
     var appendMessageRow = function(message) {
@@ -204,7 +207,7 @@ Vmail.factory('getEmailService',
     return {
       loadInboxGmailApi: loadInboxGmailApi,
       loadSentGmailApi: loadSentGmailApi,
-      listLabels: listLabels
+      loadLabelsGmailApi: loadLabelsGmailApi
     };
 
 }]);

@@ -3,5 +3,5 @@ Vmail.controller('inboxCtrl',
   function($scope, getEmailService, sendEmailService, authService){
     // authService.checkAuth();
     getEmailService.loadInboxGmailApi();
-    getEmailService.listLabels();
+    // getEmailService.loadLabelsGmailApi();
 }]);

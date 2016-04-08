@@ -7,8 +7,8 @@ Vmail.factory('authService',
     var clientId = "964487304071-isgtc4bqnc1otdfj5cegfdqb5gfkmsr1.apps.googleusercontent.com";
     var scopes =
       'https://www.googleapis.com/auth/gmail.readonly '+
-      'https://www.googleapis.com/auth/gmail.send ' + 
-      'https://www.googleapis.com/auth/gmail.labels ' + 
+      'https://www.googleapis.com/auth/gmail.send ' +
+      'https://www.googleapis.com/auth/gmail.labels ' +
       'https://mail.google.com';
 
     var checkAuth = function() {
