@@ -35,10 +35,53 @@ Vmail.factory('getEmailService',
     };
 
     var displaySent = function() {
-
       var request = $window.gapi.client.gmail.users.messages.list({
         'userId': 'me',
         'labelIds': 'SENT',
+        'maxResults': 10
+      });
+
+      request.execute(function(response) {
+        $.each(response.messages, function() {
+          var messageRequest = $window.gapi.client.gmail.users.messages.get({
+            'userId': 'me',
+            'id': this.id
+          });
+          messageRequest.execute(appendSentMessageRow);
+        });
+      });
+    };
+
+    var loadStarredGmailApi = function() {
+      $window.gapi.client.load('gmail', 'v1', displayStarred);
+    };
+
+    var displayStarred = function() {
+      var request = $window.gapi.client.gmail.users.messages.list({
+        'userId': 'me',
+        'labelIds': 'STARRED',
+        'maxResults': 10
+      });
+
+      request.execute(function(response) {
+        $.each(response.messages, function() {
+          var messageRequest = $window.gapi.client.gmail.users.messages.get({
+            'userId': 'me',
+            'id': this.id
+          });
+          messageRequest.execute(appendMessageRow);
+        });
+      });
+    };
+
+    var loadDraftGmailApi = function() {
+      $window.gapi.client.load('gmail', 'v1', displayDraft);
+    };
+
+    var displayDraft = function() {
+      var request = $window.gapi.client.gmail.users.messages.list({
+        'userId': 'me',
+        'labelIds': 'DRAFT',
         'maxResults': 10
       });
 
@@ -88,6 +131,65 @@ Vmail.factory('getEmailService',
       $('.table-inbox tbody').append(
         '<tr>\
           <td>'+getHeader(message.payload.headers, 'From')+'</td>\
+          <td>\
+            <a href="#message-modal-' + message.id +
+              '" data-toggle="modal" id="message-link-' + message.id+'">' +
+              getHeader(message.payload.headers, 'Subject') +
+            '</a>\
+          </td>\
+          <td>'+getHeader(message.payload.headers, 'Date')+'</td>\
+        </tr>'
+      );
+      $('body').append(
+        '<div class="modal fade" id="message-modal-' + message.id +
+            '" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">\
+          <div class="modal-dialog modal-lg">\
+            <div class="modal-content">\
+              <div class="modal-header">\
+                <button type="button"\
+                        class="close"\
+                        data-dismiss="modal"\
+                        aria-label="Close">\
+                  <span aria-hidden="true">&times;</span></button>\
+                <h4 class="modal-title" id="myModalLabel">' +
+                  getHeader(message.payload.headers, 'Subject') +
+                '</h4>\
+              </div>' +
+              '<div class="modal-body">\
+                <iframe id="message-iframe-'+message.id+'" srcdoc="<p>Loading...</p>">\
+                </iframe>\
+              </div>\
+              <div class="modal-footer">\
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>\
+                <button type="button" class="btn btn-primary reply-button" data-dismiss="modal" data-toggle="modal" data-target="#reply-modal"\
+                  onclick="fillInReply(\
+                    \''+reply_to+'\', \
+                    \''+reply_subject+'\', \
+                    \''+getHeader(message.payload.headers, 'Message-ID')+'\'\
+                  );"\
+                >Reply</button>\
+              </div>\
+            </div>\
+          </div>\
+        </div>'
+      );
+      $('#message-link-'+message.id).on('click', function(){
+        var ifrm = $('#message-iframe-'+message.id)[0].contentWindow.document;
+        $('body', ifrm).html(getBody(message.payload));
+      });
+    };
+
+    var appendSentMessageRow = function(message) {
+
+      var reply_to = (getHeader(message.payload.headers, 'Reply-to') !== '' ?
+        getHeader(message.payload.headers, 'Reply-to') :
+        getHeader(message.payload.headers, 'From')).replace(/\"/g, '&quot;');
+
+      var reply_subject = 'Re: '+getHeader(message.payload.headers, 'Subject').replace(/\"/g, '&quot;');
+
+      $('.table-inbox tbody').append(
+        '<tr>\
+          <td>'+getHeader(message.payload.headers, 'To')+'</td>\
           <td>\
             <a href="#message-modal-' + message.id +
               '" data-toggle="modal" id="message-link-' + message.id+'">' +
@@ -207,7 +309,9 @@ Vmail.factory('getEmailService',
     return {
       loadInboxGmailApi: loadInboxGmailApi,
       loadSentGmailApi: loadSentGmailApi,
-      loadLabelsGmailApi: loadLabelsGmailApi
+      loadLabelsGmailApi: loadLabelsGmailApi,
+      loadStarredGmailApi: loadStarredGmailApi,
+      loadDraftGmailApi: loadDraftGmailApi
     };
 
 }]);
