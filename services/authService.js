@@ -36,20 +36,12 @@ Vmail.factory('authService',
     var handleAuthResult = function(authResult) {
       if(authResult && !authResult.error) {
         getEmailService.loadGmailApi();
-        $('#compose-button').removeClass("hidden");
-        $('#authorize-button').remove();
-        $('.table-inbox').removeClass("hidden");
-        $state.go("index.inbox");
-      } else {
-        $('#authorize-button').removeClass("hidden");
-        // $('#authorize-button').on('click', function(){
-        //   handleAuthClick();
-        // });
-      }
+      } 
     };
 
     return {
       handleClientLoad: handleClientLoad,
-      handleAuthClick: handleAuthClick
+      handleAuthClick: handleAuthClick, 
+      checkAuth: checkAuth
     };
 }]);

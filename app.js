@@ -11,6 +11,7 @@ var Vmail = angular.module('Vmail', ['ui.router'])
       .state('index', {
         url: '/inbox',
         abstract: true,
+        controller: 'authCtrl',
         views: {
           '': {
             templateUrl: 'templates/index.html'
@@ -23,31 +24,31 @@ var Vmail = angular.module('Vmail', ['ui.router'])
           }
         }
       })
-      .state('index.compose', {
-        url: '/compose',
-        templateUrl: 'templates/compose.html',
-        controller: 'composeCtrl'
-      })
+      // .state('index.compose', {
+      //   url: '/compose',
+      //   templateUrl: 'templates/compose.html',
+      //   controller: 'composeCtrl'
+      // })
       .state('index.inbox', {
         url: '',
         templateUrl: 'templates/inbox.html',
         controller: 'inboxCtrl'
       })
-      .state('index.starred', {
-        url: '/starred',
-        templateUrl: 'templates/starred.html',
-        controller: 'starredCtrl'
-      })
-      .state('index.sent', {
-        url: '/sent',
-        templateUrl: 'templates/sent.html',
-        controller: 'sentCtrl'
-      })
-      .state('index.draft', {
-        url: '/draft',
-        templateUrl: 'templates/draft.html',
-        controller: 'draftCtrl'
-      });
+      // .state('index.starred', {
+      //   url: '/starred',
+      //   templateUrl: 'templates/starred.html',
+      //   controller: 'starredCtrl'
+      // })
+      // .state('index.sent', {
+      //   url: '/sent',
+      //   templateUrl: 'templates/sent.html',
+      //   controller: 'sentCtrl'
+      // })
+      // .state('index.draft', {
+      //   url: '/draft',
+      //   templateUrl: 'templates/draft.html',
+      //   controller: 'draftCtrl'
+      // });
 
     }
   ]);
