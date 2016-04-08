@@ -33,7 +33,7 @@ Vmail.factory('sendEmailService', ['$window', function($window){
     return sendRequest.execute(callback);
   }
 
-  var compseTidy = function(){
+  var composeTidy = function(){
     $('#compose-modal').modal('hide');
     $('#compose-to').val('');
     $('#compose-subject').val('');

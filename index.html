@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="vendor/bootstrap-theme.min.css">
     <link rel="stylesheet" href="assets/styles.css">
   </head>
-  <body>
+  <body ng-controller="globalCtrl">
     <div ui-view="navbar"></div>
     <div class="col-xs-2">
       <div ui-view="leftPanel"></div>
@@ -26,6 +26,7 @@
     <!-- Our JS Application Files -->
     <script src="app.js"></script>
     <!-- Controllers -->
+    <script src="controllers/globalController.js"></script>
     <script src="controllers/authController.js"></script>
     <script src="controllers/inboxController.js"></script>
     <!-- Directives -->

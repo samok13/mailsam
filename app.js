@@ -24,11 +24,10 @@ var Vmail = angular.module('Vmail', ['ui.router'])
           }
         }
       })
-      .state('index.compose', {
-        url: '/compose',
-        templateUrl: 'templates/compose.html',
-        controller: 'composeCtrl'
-      })
+      // .state('index.compose', {
+      //   url: '/compose-modal',
+      //   // controller: 'composeCtrl'
+      // })
       .state('index.inbox', {
         url: '',
         templateUrl: 'templates/inbox.html',
