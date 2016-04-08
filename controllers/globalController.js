@@ -4,6 +4,6 @@ Vmail.controller('globalCtrl',
 
     $scope.sendEmail = function(){
       sendEmailService.sendEmail();
-    }
+    };
 
 }]);

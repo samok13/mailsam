@@ -1,6 +1,6 @@
 Vmail.factory('sendEmailService', ['$window', function($window){
 
-  var gapi = $window.gapi;     
+  var gapi = $window.gapi;
 
   var sendEmail = function(){
     $('#send-button').addClass('disabled');
@@ -13,7 +13,7 @@ Vmail.factory('sendEmailService', ['$window', function($window){
       composeTidy
     );
     return false;
-  }
+  };
 
   var sendMessage = function(headers_obj, message, callback){
     var email = '';
@@ -31,7 +31,7 @@ Vmail.factory('sendEmailService', ['$window', function($window){
     });
 
     return sendRequest.execute(callback);
-  }
+  };
 
   var composeTidy = function(){
     $('#compose-modal').modal('hide');
@@ -39,10 +39,10 @@ Vmail.factory('sendEmailService', ['$window', function($window){
     $('#compose-subject').val('');
     $('#compose-message').val('');
     $('#send-button').removeClass('disabled');
-  }
+  };
 
   return{
-    sendEmail: sendEmail 
+    sendEmail: sendEmail
   };
 
 }]);
