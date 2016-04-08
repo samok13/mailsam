@@ -42,7 +42,8 @@ Vmail.factory('sendEmailService', ['$window', function($window){
   };
 
   return{
-    sendEmail: sendEmail
+    sendEmail: sendEmail,
+    sendMessage: sendMessage
   };
 
 }]);
