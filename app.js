@@ -8,10 +8,45 @@ var Vmail = angular.module('Vmail', ['ui.router'])
         templateUrl: 'templates/signin.html',
         controller: 'authCtrl'
       })
-      .state('email', {
-        url: '/email',
-        templateUrl: 'templates/email.html',
-        controller: 'emailCtrl'
+      .state('index', {
+        url: '/inbox',
+        abstract: true,
+        views: {
+          '': {
+            templateUrl: 'templates/index.html'
+          },
+          'navbar': {
+            templateUrl: 'templates/navbar.html'
+          },
+          'leftPanel': {
+            templateUrl: 'templates/leftPanel.html'
+          }
+        }
+      })
+      .state('index.compose', {
+        url: '/compose',
+        templateUrl: 'templates/compose.html',
+        controller: 'composeCtrl'
+      })
+      .state('index.inbox', {
+        url: '',
+        templateUrl: 'templates/inbox.html',
+        controller: 'inboxCtrl'
+      })
+      .state('index.starred', {
+        url: '/starred',
+        templateUrl: 'templates/starred.html',
+        controller: 'starredCtrl'
+      })
+      .state('index.sent', {
+        url: '/sent',
+        templateUrl: 'templates/sent.html',
+        controller: 'sentCtrl'
+      })
+      .state('index.draft', {
+        url: '/draft',
+        templateUrl: 'templates/draft.html',
+        controller: 'draftCtrl'
       });
 
     }

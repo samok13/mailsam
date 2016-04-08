@@ -4,7 +4,7 @@ Vmail.factory('getEmailService', ['$window', function($window){
 
   var loadGmailApi = function() {
     $window.gapi.client.load('gmail', 'v1', displayInbox);
-  }
+  };
 
   var displayInbox = function() {
     var request = $window.gapi.client.gmail.users.messages.list({
@@ -22,7 +22,7 @@ Vmail.factory('getEmailService', ['$window', function($window){
         messageRequest.execute(appendMessageRow);
       });
     });
-  }
+  };
 
   var appendMessageRow = function(message) {
     $('.table-inbox tbody').append(
@@ -64,7 +64,7 @@ Vmail.factory('getEmailService', ['$window', function($window){
       var ifrm = $('#message-iframe-'+message.id)[0].contentWindow.document;
       $('body', ifrm).html(getBody(message.payload));
     });
-  }
+  };
 
   var getHeader = function(headers, index) {
     var header = '';
@@ -74,7 +74,7 @@ Vmail.factory('getEmailService', ['$window', function($window){
       }
     });
     return header;
-  }
+  };
 
   var getBody = function(message) {
     var encodedBody = '';
@@ -88,7 +88,7 @@ Vmail.factory('getEmailService', ['$window', function($window){
     }
     encodedBody = encodedBody.replace(/-/g, '+').replace(/_/g, '/').replace(/\s/g, '');
     return decodeURIComponent(escape(window.atob(encodedBody)));
-  }
+  };
 
   var getHTMLPart = function(arr) {
     for(var x = 0; x <= arr.length; x++)
@@ -106,7 +106,7 @@ Vmail.factory('getEmailService', ['$window', function($window){
       }
     }
     return '';
-  }
+  };
 
   return{
     loadGmailApi: loadGmailApi

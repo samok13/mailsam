@@ -1,5 +1,5 @@
-Vmail.controller('emailCtrl',
+Vmail.controller('inboxCtrl',
   ['$scope','getEmailService','sendEmailService','authService',
   function($scope, getEmailService, sendEmailService, authService){
-
+    
 }]);

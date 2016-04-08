@@ -5,3 +5,7 @@ iframe {
   height: 600px;
   display: flex;
 }
+
+.section-border {
+  border: 1px solid #aaa;
+}

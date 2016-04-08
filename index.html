@@ -8,26 +8,30 @@
     <link rel="stylesheet" href="assets/styles.css">
   </head>
   <body>
-    <ui-view></ui-view>
+    <div ui-view="navbar"></div>
+    <div class="col-xs-2">
+      <div ui-view="leftPanel"></div>
+    </div>
+    <div class="col-xs-10">
+      <ui-view></ui-view>
+    </div>
+
     <!-- 3rd Party JS Libraries -->
     <script src="vendor/jquery-2.2.3.min.js"></script>
     <script src="vendor/bootstrap.min.js"></script>
     <script src="vendor/angular.min.js"></script>
     <script src="vendor/angular-ui-router.min.js"></script>
-    <!--</script>-->
+    <script src="https://apis.google.com/js/client.js"></script>
 
     <!-- Our JS Application Files -->
     <script src="app.js"></script>
     <!-- Controllers -->
     <script src="controllers/authController.js"></script>
-    <script src="controllers/emailController.js"></script>
+    <script src="controllers/inboxController.js"></script>
     <!-- Directives -->
     <!-- Services -->
     <script src="services/authService.js"></script>
     <script src="services/getEmailService.js"></script>
     <script src="services/sendEmailService.js"></script>
-
-    <!-- Make sure to call after handleClientLoad is defined -->
-    <script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
   </body>
 </html>
